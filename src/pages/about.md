@@ -4,11 +4,7 @@ title: "About"
 ---
 
 ## Noble Varghese
-Hey 👋, I'm a backend engineer pwith a knack for building powerful, efficient systems with technologies like Python, Go, TypeScript, AWS, and Cloudflare. I’ve worked on exciting projects, from developing high-performance SDKs to optimizing APIs for lightning-fast performance. I’ve also contributed to open-source projects like PortkeyAi, LangchainJS and Llamaindex, collaborating with industry experts to solve real-world problems. Always curious, I enjoy exploring new frameworks, automation, and optimization strategies to make things run smarter and smoother. Ultimately, I’m driven by creating solutions that are reliable, effective, and simple.
-
-<div>
-  <img src="/assets/profile-pic.jpg" class="sm:w-1/2 mx-auto rounded-full" alt="profile picture of Noble Varghese">
-</div>
+Hey 👋, I'm a backend engineer with a knack for building powerful, efficient systems with technologies like Python, Go, TypeScript, AWS, and Cloudflare. I’ve worked on exciting projects, from developing high-performance SDKs to optimizing APIs for lightning-fast performance. I’ve also contributed to open-source projects like PortkeyAi, LangchainJS and Llamaindex, collaborating with industry experts to solve real-world problems. Always curious, I enjoy exploring new frameworks, automation, and optimization strategies to make things run smarter and smoother. Ultimately, I’m driven by creating solutions that are reliable, effective, and simple.
 
 ## Tech Stack
 

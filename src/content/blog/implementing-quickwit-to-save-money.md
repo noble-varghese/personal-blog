@@ -12,26 +12,26 @@ tags:
   - observability
 description: Saving costs by moving to opensource alternatives of elasticsearch.
 ---
-
-
 Hey there, fellow tech enthusiasts! 🚀
 
-As a team of innovators, we're building something new and exciting, but we also have to be smart about our expenses. In our early days, keeping costs under control while maintaining high performance was a balancing act. That's where observability comes into play - it's crucial for us to keep tabs on how everything's running smoothly.
+&nbsp; When I joined **Thena**, we were heavily relying on [Opensearch](https://aws.amazon.com/opensearch-service) and Heroku’s [Mezmo](https://www.mezmo.com/) (formerly LogDNA) to handle all our logging needs. While these tools served us well, there was one major downside: the cost. At over $450 a month, maintaining such an infrastructure wasn't sustainable for a fast-growing company looking to scale smartly. So, I took it upon myself to find a better, more cost-efficient solution that wouldn’t sacrifice performance.
 
-Initially, we were leaning heavily on [Opensearch](https://aws.amazon.com/opensearch-service) (thanks to AWS) and Heroku's [Mezmo](https://www.mezmo.com/) (formerly LogDNA) for our logging needs. While these tools served us well with solid log storage, speedy searches, and powerful aggregations, the costs quickly added up - over $450 a month, to be precise. For a growing startup, that was a significant expense. So, we started hunting for an open-source alternative that could deliver the same high performance without the high price tag. That's when [Quickwit](https://quickwit.io/) caught our eye.
+That’s when I discovered **[Quickwit](https://quickwit.io/)**, and I knew this was the game-changer we needed.
 
-## Enter Quickwit: The Game-Changer
+## Quickwit: The Game-Changer 🛠️
 
-Quickwit is a breath of fresh air in the observability landscape. Built on top of [Tantivy](https://github.com/quickwit-oss/tantivy)- an open-source search engine library written in Rust - Quickwit is akin to Lucene but designed for observability with a minimal footprint. Here's why Quickwit has quickly become our go-to tool:
+Quickwit caught my eye because it offered everything we needed but with a much lighter footprint and at a fraction of the cost. Built on top of the **Tantivy** search engine (written in Rust), it’s like Lucene but designed specifically for observability — something we needed in spades. 
 
-### 1. Performance Meets Cost-Efficiency
+Taking charge of the project, I rolled up my sleeves and set out to rebuild our entire logging and observability pipeline around Quickwit. And here’s why it’s been a game-changer for us at Thena:
 
-Quickwit shines with its low overhead and high-speed performance. Unlike traditional solutions, it stores indexed data on S3-compatible object storage. This decoupling of storage and compute not only enhances performance but also reduces costs.
-Quickwit offered several key advantages that made it the ideal solution for us:
+### 1. Performance + Cost Efficiency = Winning Combo 🏅
 
-- **Lower Cost Storage**: Quickwit's optimized log storage and indexing allowed us to store more data without breaking the bank.
-- **Scalability**: Quickwit's architecture enabled seamless horizontal scaling in EKS, effortlessly handling our growing log volumes.
-- **Performance**: Even with massive datasets, Quickwit let us query logs at lightning speed, supercharging our ability to diagnose and squash issues.
+The first big win was getting rid of our bloated logging costs. By switching to Quickwit, we decoupled our storage from our compute needs, allowing us to store indexed data on S3-compatible object storage. This gave us two key benefits:
+- **Significantly Lower Costs**: Quickwit’s log storage and indexing were far more affordable than our previous solutions.
+- **Seamless Scalability**: As our data grew, Quickwit scaled effortlessly in our EKS setup, meaning no more sleepless nights worrying about log volumes.
+- **Performance**: Querying through massive datasets at breakneck speed became the norm — something our previous stack struggled with.
+
+I had our new logging system up and running, delivering better performance and saving us a ton of money in the process.
 
 <style>
   .bigger-image {
@@ -46,41 +46,41 @@ Quickwit offered several key advantages that made it the ideal solution for us:
   <img src="/assets/performance-metrics-quickwit.png" class="bigger-image" alt="Quickwit prometheus metrics">
 </div>
 
-### 2. Feature-Rich Out of the Box
+### 2. Feature-Packed and Ready for Action 💡
 
-Quickwit doesn't skimp on features. It offers:
+Once I had Quickwit set up, I was blown away by its versatility. Here are just a few of the features that made it the perfect fit for Thena:
+- **Grafana Integration**: With Quickwit’s Grafana datasource, I built dynamic, real-time dashboards that let us visualize everything in one place.
+- **Log and Trace Ingestion**: Handling both logs and traces was a breeze, giving us a full picture of system performance.
+- **Jaeger Integration**: Quickwit fit right into our existing distributed tracing setup with Jaeger, making debugging across services much easier.
+- **Elasticsearch-Compatible APIs**: Migrating from OpenSearch was smooth, thanks to Quickwit’s Elasticsearch compatibility.
+- **Blazing-Fast Searches**: We needed sub-second search performance for our growing datasets, and Quickwit delivered, letting us search logs directly from object storage without any delays.
 
-- **Datasource for Grafana**: Integrates seamlessly, allowing for dynamic and customizable dashboards.
-- **Log and Trace Ingestion**: Handles both logs and traces efficiently.
-- **Jaeger Integration**: Works well with Jaeger, another fantastic open-source tool for distributed tracing.
-- **Elasticsearch-Compatible APIs**: Ensures smooth compatibility with Elasticsearch queries.
-- **Sub-Second Searches**: Provides lightning-fast search capabilities directly from object storage.
+### 3. Flexible Indexing for All Our Data 🛠️
 
-### 3. Flexibility in Indexing
+Quickwit’s flexibility really shined when I set it up to handle our semi-structured data. With **schemaless indexing** (introduced in version 0.8), I was able to index JSON documents with tons of varying fields, which was crucial for the different types of data Thena handles. This adaptability saved us from having to restructure or compromise on how we log data.
 
-One of Quickwit's (from 0.8) standout features is its ability to handle semi-structured data. With schemaless indexing, you can index JSON documents with an arbitrary number of fields without compromising performance. This flexibility is crucial for dealing with the diverse data formats we encounter.
+### 4. Migrating the Entire Logging Pipeline: My Journey 🌍
 
-### 4. The Transition Process
+Migrating from our existing setup to Quickwit wasn’t just a switch — it was a full-scale overhaul. Here’s how I tackled it:
 
-We implemented a phased migration approach:
+- **Proof of Concept**: First, I ran a small-scale test on an EC2 instance, comparing Quickwit’s performance against our existing tools. The results? Quickwit knocked it out of the park.
+- **Phased Migration**: I began by moving non-critical log streams to Quickwit, allowing us to test its limits with larger datasets. Quickwit handled everything like a champ.
+- **Full Migration**: Once I was confident in Quickwit’s capabilities, I completely transitioned Thena’s logging system over to Quickwit, finally shutting down our Mezmo and OpenSearch setups.
 
-- **Proof of Concept**: We deployed Quickwit alongside our existing setup on an EC2 instance to validate its performance and integration.
-- **Partial Migration**: We gradually shifted less critical log streams to Quickwit to test its capacity for handling larger data volumes. Quickwit can also be load-tested with tracegen.
-- **Full Migration**: After successful testing, we completely transitioned all logs to Quickwit and decommissioned our Mezmo and OpenSearch setups.
+**Challenges?** You bet. Ensuring zero data loss during migration was the biggest hurdle. To overcome this, I ran dual pipelines during the transition, ensuring every single log was captured and fully indexed in Quickwit. No logs left behind!
 
-**Challenges During Migration**: Ensuring zero data loss during the transition was our top priority. We temporarily ran dual pipelines to guarantee all logs were captured and conducted comparison tests to verify we weren't missing any data.
+### 5. Turbocharging Quickwit with Vector 💥
 
-### 5. Enhancing Quickwit with Vector
+To make our logging pipeline even more robust, I combined Quickwit with **Vector** — a logging powerhouse also written in Rust. Vector became the key to making sure our logs were not only ingested smoothly but also transformed and filtered along the way:
 
-We didn't stop there. To supercharge our logging pipeline and to ensure resilience, we combined Quickwit with Vector from Datadog. Vector is another gem written in Rust and brings some incredible advantages to the table:
+- **Low Footprint**: Vector is way lighter than Fluentbit or Logstash, making it the perfect complement to Quickwit.
+- **Log Transformation**: With **Vector Remap Language (VRL)**, I was able to filter and manipulate logs before they were stored, ensuring we only kept what was necessary and secure.
+- **Resilience**: Vector offered in-memory log storage when sinks weren’t available, ensuring no logs were ever lost, even in the event of a failure.
 
-- Low Footprint: Vector is lightweight compared to other solutions like Fluentbit and Logstash, thanks to its Rust-based design.
-  Vector Remap Language (VRL): This powerful feature allows us to transform, filter, and manipulate logs before indexing, making our data processing much more efficient and also enabled us to mask any sensitive data that might have been added to the logs.
-- Versatile Sources: Vector offers extensive options for log sources, enhancing our data ingestion capabilities.
-  Disaster Recovery: Vector can temporarily store logs in-memory if one or more sinks (destination log storage) are unavailable, ensuring full data security in the event of a disaster.
+## The Final Verdict 🏆
 
-## The Verdict
+Building this entire observability solution for Thena with Quickwit has been one of the most rewarding challenges I’ve tackled. Not only did I dramatically reduce our costs, but I also significantly boosted our logging performance and flexibility. Quickwit has exceeded every expectation, and the transition from our old system to this new setup was seamless.
 
-Quickwit has been a game-changer for our observability needs. It's been performing beyond our expectations and has proven to be a cost-effective alternative to our previous solutions. As we continue to grow, having a reliable and efficient logging setup like Quickwit ensures we stay on top of our game without burning a hole in our budget.
-That's all for now, folks! If you're a startup or a tech team looking for an observability tool that's both powerful and cost-effective, give Quickwit a look. It might just be the solution you've been searching for.
-Catch you next time! 🌟
+For any tech teams out there looking for a powerful, cost-effective observability solution — **Quickwit is the way to go**. It’s changed the game for us at Thena, and I’m proud to have been the one to bring this solution to life.
+
+Thanks for reading, and until next time — keep building and stay curious! 🌟

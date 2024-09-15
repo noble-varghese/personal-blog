@@ -4,8 +4,8 @@ export const SITE: Site = {
   website: "https://noblevarghese.com/", // replace this with your deployed domain
   author: "Noble Varghese",
   profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
-  title: "Home",
+  desc: "",
+  title: "Noble",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
@@ -106,7 +106,7 @@ export const SOCIALS: SocialObjects = [
   // },
   {
     name: "Discord",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://discord.com/user/noble_varghese",
     linkTitle: `${SITE.title} on Discord`,
     active: true,
   },
