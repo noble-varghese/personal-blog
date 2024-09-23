@@ -5,6 +5,11 @@ on:
     branches: [main]
   workflow_call:
 
+permissions:
+  contents: read  # Required to access repository content
+  pages: write    # Required to deploy to GitHub Pages
+  id-token: write # Required for OIDC authentication during deployment
+
 jobs:
   build:
     name: Code standards & build
