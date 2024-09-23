@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: ./public # Ensure this is the correct output path of your build
+          path: ./dist/assets # Ensure this is the correct output path of your build
 
   deploy:
     name: Deploy to GitHub Pages
