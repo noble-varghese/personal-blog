@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         # with:
-        #   node-version: 16  # Specify your preferred Node.js version
+        #   node-version: 16  # Or your preferred Node.js version
 
       - name: Install dependencies
         run: npm install
@@ -28,11 +28,18 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      # Upload the build artifacts (the `dist` folder)
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: ./dist # Specify the build output folder
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-        # with:
-        #   path: ./dist
+        with:
+          artifact-name: github-pages # Specify the artifact name used in the upload step
